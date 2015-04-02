@@ -9,6 +9,7 @@ groups=("${MINGW_PACKAGE_PREFIX}")
 arch=('any')
 url='http://ocaml.org/'
 license=('Q Public Licence 1.0' 'GPL2')
+depends=("${MINGW_PACKAGE_PREFIX}-flexdll")
 makedepends=("diffutils")
 source=("http://caml.inria.fr/pub/distrib/ocaml-4.02/ocaml-4.02.1.tar.gz"
         "0001-Rename-Makefile.mingw-to-Makefile.mingw32.patch"
