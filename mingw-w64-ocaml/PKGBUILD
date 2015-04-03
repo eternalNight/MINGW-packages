@@ -13,10 +13,14 @@ depends=("${MINGW_PACKAGE_PREFIX}-flexdll")
 makedepends=("diffutils")
 source=("http://caml.inria.fr/pub/distrib/ocaml-4.02/ocaml-4.02.1.tar.gz"
         "0001-Rename-Makefile.mingw-to-Makefile.mingw32.patch"
-	"0002-Adapt-to-msys2-directory-layout.patch")
-sha1sums=("6af8c67f2badece81d8e1d1ce70568a16e42313e"
-          "b42b04a288efba7753492a395909357f61ea721b"
-	  "98c5ded821892fbc1a7db41c3cad18b47ce24e19")
+	"0002-Adapt-to-msys2-directory-layout.patch"
+	"0003-Install-manuals-in-msys2.patch"
+	"0004-camlheader-has-the-extension-.exe-in-msys2.patch")
+sha1sums=('6af8c67f2badece81d8e1d1ce70568a16e42313e'
+          '1e69fc88cbe936952426a03f7217f23dba57ca0a'
+          '92e66e48393800c6446c5457cf5eac94a598075d'
+          'c4a4ce80ea6d1813b85f7143051caed279f9bde4'
+          'f34fd911a03fa681823ccbc52f32aa543e70fcff')
 
 env=${MINGW_PREFIX#/}
 _pkg="${_realname}-${pkgver}"
@@ -42,6 +46,8 @@ prepare() {
 
   patch -p1 -i ${srcdir}/0001-Rename-Makefile.mingw-to-Makefile.mingw32.patch
   patch -p1 -i ${srcdir}/0002-Adapt-to-msys2-directory-layout.patch
+  patch -p1 -i ${srcdir}/0003-Install-manuals.patch
+  patch -p1 -i ${srcdir}/0004-camlheader-has-the-extension-.exe-in-msys2.patch
 }
 
 build() {
