@@ -1,0 +1,48 @@
+# Maintainer: Junjie Mao <eternal.n08@gmail.com>
+
+_realname=ocaml-camlp4
+pkgname=("${MINGW_PACKAGE_PREFIX}-${_realname}")
+pkgver=4.02.1
+pkgrel=1
+pkgdesc='Pre-Processor-Pretty-Printer for OCaml'
+groups=("${MINGW_PACKAGE_PREFIX}")
+arch=('any')
+url='https://github.com/ocaml/camlp4'
+license=('LGPL2')
+depends=("${MINGW_PACKAGE_PREFIX}-ocaml")
+makedepends=("${MINGW_PACKAGE_PREFIX}-flexdll")
+source=("${_realname}-${pkgver}.tar.gz::https://github.com/ocaml/camlp4/archive/4.02.1.tar.gz"
+	"0001-Properly-quote-preprocessor-command-to-ocamldep.patch"
+	"0002-Add-DESTDIR-in-configure.patch")
+sha1sums=('c16d9ae3693612c71e12d2880ec911772b8d23c3'
+          'eb7a5092e105a62307b4561c7acf42fad3128d17'
+          '7acb51f522a8886974a89fd4015f4e70df592e2c')
+
+env=${MINGW_PREFIX#/}
+_pkg="${_realname}-${pkgver}"
+_pkgsrc="${env}-${_pkg}"
+noextract=(${_pkg}.tar.gz)
+prepare() {
+  cd $startdir/
+  [ -d ${srcdir}/${_pkgsrc} ] && rm -rf ${srcdir}/${_pkgsrc}
+  tar -xzf ${startdir}/${_pkg}.tar.gz -C ${srcdir}
+  cd ${srcdir}
+  mv camlp4-${pkgver} ${_pkgsrc}
+  cd ${_pkgsrc}
+
+  patch -p1 -i ${srcdir}/0001-Properly-quote-preprocessor-command-to-ocamldep.patch
+  patch -p1 -i ${srcdir}/0002-Add-DESTDIR-in-configure.patch
+}
+
+build() {
+  cd ${srcdir}/${_pkgsrc}
+  ./configure --bindir=${MINGW_PREFIX}/bin --libdir=${MINGW_PREFIX}/lib --destdir=${pkgdir}
+  export OCAMLLIB=${MINGW_PREFIX}/lib
+  make all -j1
+}
+
+package() {
+  cd ${srcdir}/${_pkgsrc}
+  make install -j1
+  [ -f LICENSE ] && install -Dm644 LICENSE ${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/LICENSE
+}
