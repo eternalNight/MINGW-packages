@@ -65,6 +65,7 @@ build() {
 package() {
   cd ${srcdir}/${_pkgsrc}
   make -f Makefile.nt install PREFIX="${pkgdir}${MINGW_PREFIX}" -j1
+  [ -f LICENSE ] && install -Dm644 LICENSE ${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/LICENSE
 
   mkdir -p ${pkgdir}/etc/profile.d
   echo '[ "$MSYSTEM" = "'$(echo ${env} | tr "[:lower:]" "[:upper:]")'" ] && export OCAMLLIB='${MINGW_PREFIX}'/lib' > ${pkgdir}/etc/profile.d/ocaml.${env}.sh

@@ -51,4 +51,5 @@ package() {
   install flexlink.exe ${pkgdir}${MINGW_PREFIX}/bin/
   install flexdll_${chain}.o ${pkgdir}${MINGW_PREFIX}/bin/
   install flexdll_initer_${chain}.o ${pkgdir}${MINGW_PREFIX}/bin/
+  [ -f LICENSE ] && install -Dm644 LICENSE ${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/LICENSE
 }
