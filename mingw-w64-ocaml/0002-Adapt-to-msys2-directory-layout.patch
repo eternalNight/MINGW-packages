@@ -1,7 +1,7 @@
 From aba4874ac9db486398a83608bbbce0bb5223b1b5 Mon Sep 17 00:00:00 2001
 From: Junjie Mao <eternal.n08@gmail.com>
 Date: Wed, 1 Apr 2015 08:53:36 +0800
-Subject: [PATCH 2/4] Adapt to msys2 directory layout
+Subject: [PATCH 2/5] Adapt to msys2 directory layout
 
 Signed-off-by: Junjie Mao <eternal.n08@gmail.com>
 ---

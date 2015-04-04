@@ -1,7 +1,7 @@
 From 027aac26cd33573e20f843a5ec3217c061359921 Mon Sep 17 00:00:00 2001
 From: Junjie Mao <eternal.n08@gmail.com>
 Date: Fri, 3 Apr 2015 08:18:50 +0800
-Subject: [PATCH 4/4] camlheader has the extension .exe in msys2
+Subject: [PATCH 4/5] camlheader has the extension .exe in msys2
 
 Signed-off-by: Junjie Mao <eternal.n08@gmail.com>
 ---

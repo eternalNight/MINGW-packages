@@ -39,7 +39,7 @@ prepare() {
 build() {
   cd ${srcdir}/${_pkgsrc}
 
-  export OCAMLLIB=${MINGW_PREFIX}/lib
+  export OCAMLLIB=${MINGW_PREFIX}/lib/ocaml
   make flexlink.exe -j1
   make build_${chain} -j1
 }
@@ -51,5 +51,9 @@ package() {
   install flexlink.exe ${pkgdir}${MINGW_PREFIX}/bin/
   install flexdll_${chain}.o ${pkgdir}${MINGW_PREFIX}/bin/
   install flexdll_initer_${chain}.o ${pkgdir}${MINGW_PREFIX}/bin/
+  for f in flexdll.h flexdll.c flexdll_initer.c default.manifest default_amd64.manifest; do
+    install ${f} ${pkgdir}${MINGW_PREFIX}/bin/
+  done
   [ -f LICENSE ] && install -Dm644 LICENSE ${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/LICENSE
+  [ -f CHANGES ] && install -Dm644 CHANGES ${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/CHANGES
 }

@@ -15,12 +15,14 @@ source=("http://caml.inria.fr/pub/distrib/ocaml-4.02/ocaml-4.02.1.tar.gz"
         "0001-Rename-Makefile.mingw-to-Makefile.mingw32.patch"
 	"0002-Adapt-to-msys2-directory-layout.patch"
 	"0003-Install-manuals-in-msys2.patch"
-	"0004-camlheader-has-the-extension-.exe-in-msys2.patch")
+	"0004-camlheader-has-the-extension-.exe-in-msys2.patch"
+	"0005-Install-libraries-to-lib-ocaml-instead-of-lib.patch")
 sha1sums=('6af8c67f2badece81d8e1d1ce70568a16e42313e'
-          '1e69fc88cbe936952426a03f7217f23dba57ca0a'
-          '92e66e48393800c6446c5457cf5eac94a598075d'
-          'c4a4ce80ea6d1813b85f7143051caed279f9bde4'
-          'f34fd911a03fa681823ccbc52f32aa543e70fcff')
+          '90859662a0fc20526c348de23381f482d3ec3b70'
+          'ee3fea976eba3d53e4d5327e8a7d7d90eb11d132'
+          '010b41dae145f28f2c35e95ab302a1fe49ef9797'
+          '04e1c33fcb52b7862f3bf3103890169423cfa389'
+          '29388788300441f57154b25e50920c6fa4f96f8b')
 
 env=${MINGW_PREFIX#/}
 _pkg="${_realname}-${pkgver}"
@@ -48,6 +50,7 @@ prepare() {
   patch -p1 -i ${srcdir}/0002-Adapt-to-msys2-directory-layout.patch
   patch -p1 -i ${srcdir}/0003-Install-manuals.patch
   patch -p1 -i ${srcdir}/0004-camlheader-has-the-extension-.exe-in-msys2.patch
+  patch -p1 -i ${srcdir}/0005-Install-libraries-to-lib-ocaml-instead-of-lib.patch
 }
 
 build() {
@@ -68,5 +71,5 @@ package() {
   [ -f LICENSE ] && install -Dm644 LICENSE ${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/LICENSE
 
   mkdir -p ${pkgdir}/etc/profile.d
-  echo '[ "$MSYSTEM" = "'$(echo ${env} | tr "[:lower:]" "[:upper:]")'" ] && export OCAMLLIB='${MINGW_PREFIX}'/lib' > ${pkgdir}/etc/profile.d/ocaml.${env}.sh
+  echo '[ "$MSYSTEM" = "'$(echo ${env} | tr "[:lower:]" "[:upper:]")'" ] && export OCAMLLIB='${MINGW_PREFIX}'/lib/ocaml' > ${pkgdir}/etc/profile.d/ocaml.${env}.sh
 }

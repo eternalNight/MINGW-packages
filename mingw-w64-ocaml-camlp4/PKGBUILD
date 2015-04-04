@@ -16,7 +16,7 @@ source=("${_realname}-${pkgver}.tar.gz::https://github.com/ocaml/camlp4/archive/
 	"0002-Add-DESTDIR-in-configure.patch")
 sha1sums=('c16d9ae3693612c71e12d2880ec911772b8d23c3'
           'eb7a5092e105a62307b4561c7acf42fad3128d17'
-          '7acb51f522a8886974a89fd4015f4e70df592e2c')
+          'cd19c3e201fbab42c26d1595eb7988e24584673f')
 
 env=${MINGW_PREFIX#/}
 _pkg="${_realname}-${pkgver}"
@@ -36,13 +36,17 @@ prepare() {
 
 build() {
   cd ${srcdir}/${_pkgsrc}
-  ./configure --bindir=${MINGW_PREFIX}/bin --libdir=${MINGW_PREFIX}/lib --destdir=${pkgdir}
-  export OCAMLLIB=${MINGW_PREFIX}/lib
+  export OCAMLLIB=${MINGW_PREFIX}/lib/ocaml
+  ./configure --bindir=${MINGW_PREFIX}/bin \
+              --libdir=${MINGW_PREFIX}/lib/ocaml \
+              --pkgdir=${MINGW_PREFIX}/lib/ocaml \
+              --destdir=${pkgdir}
   make all -j1
 }
 
 package() {
   cd ${srcdir}/${_pkgsrc}
   make install -j1
+  make install-META -j1
   [ -f LICENSE ] && install -Dm644 LICENSE ${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/LICENSE
 }

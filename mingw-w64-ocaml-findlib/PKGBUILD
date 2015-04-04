@@ -29,8 +29,11 @@ prepare() {
 
 build() {
   cd ${srcdir}/${_pkgsrc}
-  export OCAMLLIB=${MINGW_PREFIX}/lib
-  ./configure -system win32 -mandir ${MINGW_PREFIX}/share/man
+  export OCAMLLIB=${MINGW_PREFIX}/lib/ocaml
+  ./configure -system win32 \
+              -sitelib ${MINGW_PREFIX}/lib/ocaml \
+              -mandir ${MINGW_PREFIX}/share/man \
+              -no-camlp4
   make all -j1
   make opt -j1
 }

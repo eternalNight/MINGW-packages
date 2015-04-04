@@ -1,14 +1,30 @@
-From a0e2c36d21c59b628c06873f85a2894cbf02e728 Mon Sep 17 00:00:00 2001
+From 528dc19da11d3b35e61a81b142430252db1db30b Mon Sep 17 00:00:00 2001
 From: Junjie Mao <eternal.n08@gmail.com>
 Date: Fri, 3 Apr 2015 10:53:09 +0800
 Subject: [PATCH 2/2] Add DESTDIR in configure
 
 Signed-off-by: Junjie Mao <eternal.n08@gmail.com>
 ---
+ Makefile         | 4 ++--
  build/install.sh | 4 ++--
  configure        | 8 +++++++-
- 2 files changed, 9 insertions(+), 3 deletions(-)
+ 3 files changed, 11 insertions(+), 5 deletions(-)
 
+diff --git a/Makefile b/Makefile
+index c8bd7a4..0ee0046 100644
+--- a/Makefile
++++ b/Makefile
+@@ -23,8 +23,8 @@ install:
+ 
+ .PHONY: install-META
+ install-META: camlp4/META
+-	mkdir -p ${PKGDIR}/camlp4/
+-	cp -f camlp4/META ${PKGDIR}/camlp4/
++	mkdir -p ${DESTDIR}${PKGDIR}/camlp4/
++	cp -f camlp4/META ${DESTDIR}${PKGDIR}/camlp4/
+ 
+ camlp4/META: camlp4/META.in
+ 	sed -e s/@@VERSION@@/${version}/g $? > $@
 diff --git a/build/install.sh b/build/install.sh
 index 9d98d6c..220e878 100644
 --- a/build/install.sh
