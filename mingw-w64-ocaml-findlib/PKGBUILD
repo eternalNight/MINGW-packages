@@ -38,6 +38,11 @@ build() {
   make opt -j1
 }
 
+check() {
+  # The package does not include a testsuite
+  plain "skip"
+}
+
 package() {
   cd ${srcdir}/${_pkgsrc}
   make install prefix=${pkgdir}

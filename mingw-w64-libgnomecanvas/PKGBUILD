@@ -35,6 +35,11 @@ build() {
   make
 }
 
+check() {
+  # The test case fails due to a warning on a deprecated property
+  plain "skip"
+}
+
 package() {
   cd "${srcdir}"/build-${CARCH}
   make install DESTDIR="${pkgdir}"

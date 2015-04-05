@@ -47,6 +47,14 @@ build() {
   make coqide -j1
 }
 
+check() {
+  # Some tests fail due to the following reasons:
+  #   * Some signals are not available
+  #   * lockf (lock a file region) fails
+  # These cases also fail with the official binaries.
+  plain "skip"
+}
+
 package() {
   cd ${srcdir}/${_pkgsrc}
   export OCAMLLIB=${MINGW_PREFIX}/lib/ocaml

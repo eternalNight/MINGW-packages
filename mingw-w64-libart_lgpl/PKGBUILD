@@ -37,6 +37,11 @@ build() {
   make
 }
 
+check() {
+  # The package ships with some test tools but provides no automatic check mechanisms
+  plain "skip"
+}
+
 package() {
   cd "${srcdir}"/build-${CARCH}
   make install DESTDIR="${pkgdir}"

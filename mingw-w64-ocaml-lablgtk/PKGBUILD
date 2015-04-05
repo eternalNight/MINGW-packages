@@ -55,6 +55,11 @@ build() {
   make opt
 }
 
+check() {
+  # The package does not include an automatic test process
+  plain "skip"
+}
+
 package() {
   cd ${srcdir}/${_pkgsrc}
   make install DESTDIR="${pkgdir}"

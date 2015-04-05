@@ -65,6 +65,11 @@ build() {
   make -f Makefile.nt opt.opt PREFIX="$(cygpath -m ${MINGW_PREFIX})" -j1
 }
 
+check() {
+  # The testsuite refuses to compile due to lack of headers such as sys/resource.h
+  plain "skip"
+}
+
 package() {
   cd ${srcdir}/${_pkgsrc}
   make -f Makefile.nt install PREFIX="${pkgdir}${MINGW_PREFIX}" -j1
