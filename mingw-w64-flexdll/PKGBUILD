@@ -2,7 +2,7 @@
 
 _realname=flexdll
 pkgname=("${MINGW_PACKAGE_PREFIX}-${_realname}")
-pkgver=0.34
+pkgver=0.31
 pkgrel=1
 pkgdesc='An implementation of a dlopen-like API for Windows'
 groups=("${MINGW_PACKAGE_PREFIX}")
@@ -10,10 +10,14 @@ arch=('any')
 url='http://alain.frisch.fr/flexdll.html'
 license=('zlib/libpng License')
 makedepends=("${MINGW_PACKAGE_PREFIX}-ocaml")
-source=("http://alain.frisch.fr/flexdll/flexdll-0.34.tar.gz"
-        "0001-Fix-the-List.hd-exception.patch")
-sha1sums=('86acfd2d965dcf7a650f3d8e8f8db7bfe99de2a0'
-          '2f73beb854fff41e496b9e2a9995cd3dcb7f690f')
+source=("http://alain.frisch.fr/flexdll/${_realname}-${pkgver}.tar.gz"
+        "0001-Fix-the-List.hd-exception.patch"
+        "0002-Add-path-to-libcrt2.o-into-the-default-library-searc.patch"
+        "0003-Remove-the-usages-of-stdout-to-workaround-the-missin.patch")
+sha1sums=('7ca63bf8d6c731fd95e0d434a8cfbcc718b99d62'
+          '642c99ad0d2035ef028254aff41dbff49014bed3'
+          '31ebdca246a4df6069d733350c9a2b8c94d33dec'
+          '43f232f04934a0c7797f05e8db03f04ae156d8c4')
 
 env=${MINGW_PREFIX#/}
 if [ "${env}" == "mingw32" ]; then
@@ -34,6 +38,8 @@ prepare() {
   cd ${_pkgsrc}
 
   patch -p1 -i ${srcdir}/0001-Fix-the-List.hd-exception.patch
+  patch -p1 -i ${srcdir}/0002-Add-path-to-libcrt2.o-into-the-default-library-searc.patch
+  patch -p1 -i ${srcdir}/0003-Remove-the-usages-of-stdout-to-workaround-the-missin.patch
 }
 
 build() {
