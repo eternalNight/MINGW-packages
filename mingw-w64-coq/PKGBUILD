@@ -12,8 +12,10 @@ license=('LGPL 2.1')
 depends=("${MINGW_PACKAGE_PREFIX}-ocaml"
 	 "${MINGW_PACKAGE_PREFIX}-ocaml-camlp4"
 	 "${MINGW_PACKAGE_PREFIX}-ocaml-lablgtk")
-source=("https://coq.inria.fr/distrib/V8.4pl5/files/coq-8.4pl5.tar.gz")
-sha1sums=('107717cbaef3a469e8ff775ae54dbbc457935816')
+source=("https://coq.inria.fr/distrib/V8.4pl5/files/coq-8.4pl5.tar.gz"
+	"0001-Guess-the-libraries-are-located-at-lib-coq-instead-o.patch")
+sha1sums=('107717cbaef3a469e8ff775ae54dbbc457935816'
+          '5683480358e92b4eb38adc2402dd0febf37ebb2e')
 
 env=${MINGW_PREFIX#/}
 _pkg="${_realname}-${pkgver}"
@@ -27,6 +29,8 @@ prepare() {
   cd ${srcdir}
   mv ${_pkg} ${_pkgsrc}
   cd ${_pkgsrc}
+
+  patch -p1 -i ${srcdir}/0001-Guess-the-libraries-are-located-at-lib-coq-instead-o.patch
 }
 
 build() {
