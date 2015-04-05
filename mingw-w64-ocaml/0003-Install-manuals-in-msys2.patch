@@ -1,7 +1,7 @@
 From 0eb523e80cfa15e7b77c250bc1b2fa8e49cfa5e6 Mon Sep 17 00:00:00 2001
 From: Junjie Mao <eternal.n08@gmail.com>
 Date: Fri, 3 Apr 2015 07:54:14 +0800
-Subject: [PATCH 3/5] Install manuals in msys2
+Subject: [PATCH] Install manuals in msys2
 
 Signed-off-by: Junjie Mao <eternal.n08@gmail.com>
 ---
@@ -36,26 +36,25 @@ index 032b8ed..c283724 100644
 +++ b/config/Makefile.mingw32
 @@ -39,7 +39,7 @@ STUBLIBDIR=$(LIBDIR)/stublibs
  DISTRIB=$(PREFIX)
- 
+
  ### Where to install the man pages
 -MANDIR=$(PREFIX)/man
 +MANDIR=$(PREFIX)/share/man
- 
+
  ########## Toolchain and OS dependencies
- 
+
 diff --git a/config/Makefile.mingw64 b/config/Makefile.mingw64
 index 566aab3..a7ca30e 100644
 --- a/config/Makefile.mingw64
 +++ b/config/Makefile.mingw64
 @@ -39,7 +39,7 @@ STUBLIBDIR=$(LIBDIR)/stublibs
  DISTRIB=$(PREFIX)
- 
+
  ### Where to install the man pages
 -MANDIR=$(PREFIX)/man
 +MANDIR=$(PREFIX)/share/man
- 
- ########## Toolchain and OS dependencies
- 
--- 
-2.3.4
 
+ ########## Toolchain and OS dependencies
+
+--
+2.3.4

@@ -1,7 +1,7 @@
 From aba4874ac9db486398a83608bbbce0bb5223b1b5 Mon Sep 17 00:00:00 2001
 From: Junjie Mao <eternal.n08@gmail.com>
 Date: Wed, 1 Apr 2015 08:53:36 +0800
-Subject: [PATCH 2/5] Adapt to msys2 directory layout
+Subject: [PATCH] Adapt to msys2 directory layout
 
 Signed-off-by: Junjie Mao <eternal.n08@gmail.com>
 ---
@@ -14,18 +14,18 @@ index c204980..032b8ed 100644
 --- a/config/Makefile.mingw32
 +++ b/config/Makefile.mingw32
 @@ -15,7 +15,7 @@
- 
+
  ######### General configuration
- 
+
 -PREFIX=C:/ocamlmgw
 +PREFIX?=/mingw32
- 
+
  ### Remove this to disable compiling ocamldebug
  WITH_DEBUGGER=ocamldebugger
 @@ -108,13 +108,16 @@ NATIVECCLIBS=-lws2_32
  ### How to invoke the C preprocessor
  CPP=$(BYTECC) -E
- 
+
 +### Additional link-time options for $(MKEXE).
 +MKEXELINKOPTS=-L$(shell cygpath -m /mingw32/i686-w64-mingw32/lib)
 +
@@ -39,7 +39,7 @@ index c204980..032b8ed 100644
 +MKDLL=$(FLEXLINK) $(MKEXELINKOPTS)
 +MKEXE=$(FLEXLINK) -exe $(MKEXELINKOPTS)
 +MKMAINDLL=$(FLEXLINK) -maindll $(MKEXELINKOPTS)
- 
+
  ### How to build a static library
  MKLIB=rm -f $(1); $(TOOLPREF)ar rc $(1) $(2); $(RANLIB) $(1)
 diff --git a/config/Makefile.mingw64 b/config/Makefile.mingw64
@@ -47,18 +47,18 @@ index 0a3bdfb..566aab3 100644
 --- a/config/Makefile.mingw64
 +++ b/config/Makefile.mingw64
 @@ -15,7 +15,7 @@
- 
+
  ######### General configuration
- 
+
 -PREFIX=C:/ocamlmgw64
 +PREFIX?=/mingw64
- 
+
  ### Remove this to disable compiling ocamldebug
  WITH_DEBUGGER=ocamldebugger
 @@ -108,13 +108,16 @@ NATIVECCLIBS=-lws2_32
  ### How to invoke the C preprocessor
  CPP=$(BYTECC) -E
- 
+
 +### Additional link-time options for $(MKEXE).
 +MKEXELINKOPTS=-L$(shell cygpath -m /mingw64/x86_64-w64-mingw32/lib)
 +
@@ -72,9 +72,8 @@ index 0a3bdfb..566aab3 100644
 +MKDLL=$(FLEXLINK) $(MKEXELINKOPTS)
 +MKEXE=$(FLEXLINK) -exe $(MKEXELINKOPTS)
 +MKMAINDLL=$(FLEXLINK) -maindll $(MKEXELINKOPTS)
- 
+
  ### How to build a static library
  MKLIB=rm -f $(1); $(TOOLPREF)ar rc $(1) $(2); $(RANLIB) $(1)
--- 
+--
 2.3.4
-

@@ -18,11 +18,11 @@ source=("http://caml.inria.fr/pub/distrib/ocaml-4.02/ocaml-4.02.1.tar.gz"
 	"0004-camlheader-has-the-extension-.exe-in-msys2.patch"
 	"0005-Install-libraries-to-lib-ocaml-instead-of-lib.patch")
 sha1sums=('6af8c67f2badece81d8e1d1ce70568a16e42313e'
-          '90859662a0fc20526c348de23381f482d3ec3b70'
-          'ee3fea976eba3d53e4d5327e8a7d7d90eb11d132'
-          '010b41dae145f28f2c35e95ab302a1fe49ef9797'
-          '04e1c33fcb52b7862f3bf3103890169423cfa389'
-          '29388788300441f57154b25e50920c6fa4f96f8b')
+          '5b56a2ecff40d53158578d5a41e1eb992f3dcdc6'
+          'ee16e23932922f6f9fcc48072d564b90a3b66246'
+          'a780a6c94aaedcd0d19a7fbc26e09776b581a8af'
+          'e1f6b201c25b61d39404406c82684f6c8d70d23a'
+          '17010515bd9715ed36300165643d8f3ad01288cf')
 
 env=${MINGW_PREFIX#/}
 _pkg="${_realname}-${pkgver}"
