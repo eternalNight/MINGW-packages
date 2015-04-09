@@ -3,7 +3,7 @@
 _realname=ocaml-camlp4
 pkgname=("${MINGW_PACKAGE_PREFIX}-${_realname}")
 pkgver=4.02.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Pre-Processor-Pretty-Printer for OCaml'
 groups=("${MINGW_PACKAGE_PREFIX}")
 arch=('any')
@@ -13,10 +13,12 @@ depends=("${MINGW_PACKAGE_PREFIX}-ocaml")
 makedepends=("${MINGW_PACKAGE_PREFIX}-flexdll")
 source=("${_realname}-${pkgver}.tar.gz::https://github.com/ocaml/camlp4/archive/4.02.1.tar.gz"
 	"0001-Properly-quote-preprocessor-command-to-ocamldep.patch"
-	"0002-Add-DESTDIR-in-configure.patch")
+	"0002-Add-DESTDIR-in-configure.patch"
+	"0003-Guess-the-library-path-on-msys2.patch")
 sha1sums=('c16d9ae3693612c71e12d2880ec911772b8d23c3'
           'eb7a59d2e184f368d735670bea96571aa861f97b'
-          '6aa01135f05a5e943412bf728f90ced871c6a064')
+          '6aa01135f05a5e943412bf728f90ced871c6a064'
+          'db42cb6d7dfd3862d057d1771a3cb7b4e44d930d')
 
 env=${MINGW_PREFIX#/}
 _pkg="${_realname}-${pkgver}"
@@ -32,6 +34,7 @@ prepare() {
 
   patch -p1 -i ${srcdir}/0001-Properly-quote-preprocessor-command-to-ocamldep.patch
   patch -p1 -i ${srcdir}/0002-Add-DESTDIR-in-configure.patch
+  patch -p1 -i ${srcdir}/0003-Guess-the-library-path-on-msys2.patch
 }
 
 build() {
@@ -54,7 +57,4 @@ package() {
   make install -j1
   make install-META -j1
   [ -f LICENSE ] && install -Dm644 LICENSE ${pkgdir}${MINGW_PREFIX}/share/licenses/${_realname}/LICENSE
-
-  mkdir -p ${pkgdir}/etc/profile.d
-  echo '[ "$MSYSTEM" = "'$(echo ${env} | tr "[:lower:]" "[:upper:]")'" ] && export CAMLP4LIB='${MINGW_PREFIX}'/lib/ocaml' > ${pkgdir}/etc/profile.d/camlp4.${env}.sh
 }
