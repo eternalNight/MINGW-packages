@@ -34,7 +34,6 @@ prepare() {
 
 build() {
   cd ${srcdir}/${_pkgsrc}
-  export OCAMLLIB=${MINGW_PREFIX}/lib/ocaml
   ./configure -prefix ${MINGW_PREFIX} \
 	      -bindir ${MINGW_PREFIX}/bin \
 	      -libdir ${MINGW_PREFIX}/lib/coq \

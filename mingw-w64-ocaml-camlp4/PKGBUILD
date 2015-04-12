@@ -39,7 +39,6 @@ prepare() {
 
 build() {
   cd ${srcdir}/${_pkgsrc}
-  export OCAMLLIB=${MINGW_PREFIX}/lib/ocaml
   ./configure --bindir=${MINGW_PREFIX}/bin \
               --libdir=${MINGW_PREFIX}/lib/ocaml \
               --pkgdir=${MINGW_PREFIX}/lib/ocaml \

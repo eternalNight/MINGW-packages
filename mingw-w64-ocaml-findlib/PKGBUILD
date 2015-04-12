@@ -29,7 +29,6 @@ prepare() {
 
 build() {
   cd ${srcdir}/${_pkgsrc}
-  export OCAMLLIB=${MINGW_PREFIX}/lib/ocaml
   ./configure -system win32 \
               -sitelib ${MINGW_PREFIX}/lib/ocaml \
               -mandir ${MINGW_PREFIX}/share/man \

@@ -48,7 +48,6 @@ prepare() {
 build() {
   cd ${srcdir}/${_pkgsrc}
 
-  export OCAMLLIB=${MINGW_PREFIX}/lib/ocaml
   make flexlink.exe -j1
   make build_${chain} -j1
 }
