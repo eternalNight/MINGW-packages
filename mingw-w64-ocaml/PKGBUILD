@@ -13,12 +13,13 @@ depends=("${MINGW_PACKAGE_PREFIX}-flexdll")
 makedepends=("diffutils")
 source=("http://caml.inria.fr/pub/distrib/ocaml-4.02/ocaml-4.02.1.tar.gz"
         "0001-Rename-Makefile.mingw-to-Makefile.mingw32.patch"
-	"0002-Adapt-to-msys2-directory-layout.patch"
-	"0003-Install-manuals-in-msys2.patch"
-	"0004-camlheader-has-the-extension-.exe-in-msys2.patch"
-	"0005-Install-libraries-to-lib-ocaml-instead-of-lib.patch"
-	"0006-Configure-the-relative-paths-for-ocaml-libraries-on-.patch"
-	"0007-Convert-to-windows-path-before-checking-stats.patch")
+        "0002-Adapt-to-msys2-directory-layout.patch"
+        "0003-Install-manuals-in-msys2.patch"
+        "0004-camlheader-has-the-extension-.exe-in-msys2.patch"
+        "0005-Install-libraries-to-lib-ocaml-instead-of-lib.patch"
+        "0006-Configure-the-relative-paths-for-ocaml-libraries-on-.patch"
+        "0007-Convert-to-windows-path-before-checking-stats.patch"
+        "0008-Use-the-standard-paths-from-Config-in-ocamlbuild.patch")
 sha1sums=('6af8c67f2badece81d8e1d1ce70568a16e42313e'
           '5b56a2ecff40d53158578d5a41e1eb992f3dcdc6'
           'ee16e23932922f6f9fcc48072d564b90a3b66246'
@@ -26,7 +27,8 @@ sha1sums=('6af8c67f2badece81d8e1d1ce70568a16e42313e'
           'e1f6b201c25b61d39404406c82684f6c8d70d23a'
           '17010515bd9715ed36300165643d8f3ad01288cf'
           '78b69527ce8a78fbb31f7b9f3e0e04bf3ffcc165'
-          'cff96df7caef78097ac73a382e4ef50418a7583b')
+          'cff96df7caef78097ac73a382e4ef50418a7583b'
+          '8b087c4189dc2837f3ca4aa88a5b167bbaa8e882')
 
 env=${MINGW_PREFIX#/}
 _pkg="${_realname}-${pkgver}"
@@ -57,6 +59,7 @@ prepare() {
   patch -p1 -i ${srcdir}/0005-Install-libraries-to-lib-ocaml-instead-of-lib.patch
   patch -p1 -i ${srcdir}/0006-Configure-the-relative-paths-for-ocaml-libraries-on-.patch
   patch -p1 -i ${srcdir}/0007-Convert-to-windows-path-before-checking-stats.patch
+  patch -p1 -i ${srcdir}/0008-Use-the-standard-paths-from-Config-in-ocamlbuild.patch
 }
 
 build() {
@@ -65,10 +68,10 @@ build() {
   cp config/s-nt.h config/s.h
   cp config/Makefile.${env} config/Makefile
 
-  make -f Makefile.nt world PREFIX="$(cygpath -m ${MINGW_PREFIX})" -j1
-  make -f Makefile.nt bootstrap PREFIX="$(cygpath -m ${MINGW_PREFIX})" -j1
-  make -f Makefile.nt opt PREFIX="$(cygpath -m ${MINGW_PREFIX})" -j1
-  make -f Makefile.nt opt.opt PREFIX="$(cygpath -m ${MINGW_PREFIX})" -j1
+  make -f Makefile.nt world -j1
+  make -f Makefile.nt bootstrap -j1
+  make -f Makefile.nt opt -j1
+  make -f Makefile.nt opt.opt -j1
 }
 
 check() {
